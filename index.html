@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="main">
+        <div class="display">
+            <h2 id="quesBox"> 1\dummy Question</h2>
+            <div class="row">
+                <input  class="options" id="Option1" type="radio" value="a" name="Option">
+                <label for="Option1">Option 1</label>
+            </div>
+            <div class="row">
+                <input class="options"  id="Option2" type="radio" value="b" name="Option">
+                <label for="Option 2">Option 2</label>
+            </div>
+            <div class="row">
+                <input  class="options" id="Option3" type="radio" value="c" name="Option">
+                <label for="Option3">Option 3</label>
+            </div>
+            <div class="row">
+                <input class="options"  id="Option4" type="radio" value="d" name="Option">
+                <label for="Option4">Option 4</label>
+            </div>
+            <button class="btn" onclick="sumitQuiz()">
+                 summit
+            </button>
+            </div>
+    </div>
+    <script>
+ const Question=[{
+    'que':'which language is Markup Language?',
+    'a' :'HTML',
+    'b':'css',
+    'c':'java',
+    'd':'javascript',
+    'correct':'a',
+ },
+ {
+    'que':'which language is script language?',
+    'a':'javaScript',
+    'b':'pathon',
+    'c':'c++',
+    'd':'non',
+    'correct':'a',
+ },
+ {
+    'que':'which language is  diffcult?',
+    'a':'java',
+    'b':'pathon',
+    'c':'c++',
+    'd':'c#',
+    'correct':'c',
+ }
+]
+let index=0;
+let total=Question.length;
+let right=0;
+let wrong=0;
+ const quesBox=document.getElementById("quesBox");
+ const optionInput=document.querySelectorAll('.options');
+function lodQuestion(){
+    const data=Question[index];
+    if(index===total){
+        return endQuiz();
+    }
+    reset();
+    quesBox.innerText=`${index+1})   ${data?.que}`;
+    optionInput[0].nextElementSibling.innerText=data?.a;
+    optionInput[1].nextElementSibling.innerText=data?.b;
+    optionInput[2].nextElementSibling.innerText=data?.c;
+    optionInput[3].nextElementSibling.innerText=data?.d;
+}
+function sumitQuiz(){
+    const data=Question[index]; 
+    const ans=getAnswer()
+    console.log(data?.correct);
+    if(ans== data?.correct){
+        right++;
+    }else{
+        wrong++;
+    }
+    index++;
+    lodQuestion();
+    return;
+}
+function getAnswer(){
+    let answer;
+    optionInput.forEach(
+        (input)=>{
+            if(input.checked){
+                answer= input.value;
+                
+            }
+        }
+    )
+    return answer;
+}
+function reset(){
+    optionInput.forEach(
+        (input)=>{
+            input.checked=false
+            }
+    )
+}
+function endQuiz(){
+    document.getElementsByClassName("display").innerHTML=`<h3> Thank for Playing the Quiz </h3> `
+}
+lodQuestion();
+    </script>
+</body>
+</html>
